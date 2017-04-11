@@ -1,10 +1,19 @@
 package main
 
 import (
-	"fmt"
+	"encoding/json"
+	"log"
+	"net/http"
+	"os"
 )
 
 func main() {
+	port := ":" + os.Getenv("PORT")
+	http.HandleFunc("/analyze", AnalyzeSentiment)
+	log.Fatal(http.ListenAndServe(port, nil))
+}
+
+func AnalyzeSentiment(w http.ResponseWriter, r *http.Request) {
 	tweets := GetBrianTweets()
 
 	var combinedTweets string
@@ -12,7 +21,6 @@ func main() {
 	for tweet := range tweets {
 		combinedTweets += (" " + tweets[tweet].Text)
 	}
-	fmt.Println(combinedTweets)
 	sentiment := FindSentiment(combinedTweets)
-	fmt.Println(sentiment)
+	json.NewEncoder(w).Encode(sentiment)
 }
