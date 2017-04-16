@@ -26,14 +26,20 @@ type BearerToken struct {
 	AccessToken string `json:"access_token"`
 }
 
-func GetBrianTweets() []Tweet {
+func GetBrianTweets(params url.Values) []Tweet {
 	client := &http.Client{}
 	b := getBearerToken()
-	twitterEndPoint := "https://api.twitter.com/1.1/statuses/user_timeline.json?screen_name=bafeltra8&count=5&trim_user=true"
+	twitterEndPoint := "https://api.twitter.com/1.1/statuses/user_timeline.json"
 	req, err := http.NewRequest("GET", twitterEndPoint, nil)
 	if err != nil {
 		log.Fatal(err)
 	}
+	query := req.URL.Query()
+	query.Add("screen_name", "bafeltra8")
+	query.Add("trim_user", "true")
+	query.Add("count", params["numTweets"][0])
+	query.Add("include_rts", params["includeRTs"][0])
+	req.URL.RawQuery = query.Encode()
 
 	req.Header.Add("Authorization", fmt.Sprintf("Bearer %s", b.AccessToken))
 

@@ -13,8 +13,14 @@ func main() {
 	log.Fatal(http.ListenAndServe(port, nil))
 }
 
+type FullResponse struct {
+	Tweets    []Tweet   `json:"tweets"`
+	Sentiment Sentiment `json:"sentiment"`
+}
+
 func AnalyzeSentiment(w http.ResponseWriter, r *http.Request) {
-	tweets := GetBrianTweets()
+	params := r.URL.Query()
+	tweets := GetBrianTweets(params)
 
 	var combinedTweets string
 
@@ -22,5 +28,7 @@ func AnalyzeSentiment(w http.ResponseWriter, r *http.Request) {
 		combinedTweets += (" " + tweets[tweet].Text)
 	}
 	sentiment := FindSentiment(combinedTweets)
-	json.NewEncoder(w).Encode(sentiment)
+	fullResponse := FullResponse{Tweets: tweets, Sentiment: sentiment}
+	w.Header().Set("Access-Control-Allow-Origin", "*")
+	json.NewEncoder(w).Encode(fullResponse)
 }
