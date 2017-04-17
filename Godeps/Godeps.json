@@ -1,6 +1,21 @@
 {
-	"ImportPath": ".",
+	"ImportPath": "github.com/rtravitz/bwiantweetalyzer",
 	"GoVersion": "go1.7",
 	"GodepVersion": "v75",
-	"Deps": []
+	"Deps": [
+		{
+			"ImportPath": "github.com/rs/cors",
+			"Comment": "v1.0",
+			"Rev": "a62a804a8a009876ca59105f7899938a1349f4b3"
+		},
+		{
+			"ImportPath": "github.com/rs/xhandler",
+			"Comment": "v1.0-1-ged27b6f",
+			"Rev": "ed27b6fd65218132ee50cd95f38474a3d8a2cd12"
+		},
+		{
+			"ImportPath": "golang.org/x/net/context",
+			"Rev": "8fd7f25955530b92e73e9e1932a41b522b22ccd9"
+		}
+	]
 }
