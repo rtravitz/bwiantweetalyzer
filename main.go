@@ -2,15 +2,17 @@ package main
 
 import (
 	"encoding/json"
-	"log"
+	"github.com/rs/cors"
 	"net/http"
 	"os"
 )
 
 func main() {
 	port := ":" + os.Getenv("PORT")
-	http.HandleFunc("/analyze", AnalyzeSentiment)
-	log.Fatal(http.ListenAndServe(port, nil))
+	mux := http.NewServeMux()
+	mux.HandleFunc("/analyze", AnalyzeSentiment)
+	handler := cors.Default().Handler(mux)
+	http.ListenAndServe(port, handler)
 }
 
 type FullResponse struct {
