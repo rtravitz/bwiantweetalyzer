@@ -1,10 +1,7 @@
 {
 	"ImportPath": "github.com/rtravitz/bwiantweetalyzer",
 	"GoVersion": "go1.7",
-	"GodepVersion": "v75",
-	"Packages": [
-		"./..."
-	],
+	"GodepVersion": "v79",
 	"Deps": [
 		{
 			"ImportPath": "github.com/rs/cors",
