@@ -28,6 +28,6 @@ func AnalyzeSentiment(w http.ResponseWriter, r *http.Request) {
 	}
 	sentiment := FindSentiment(combinedTweets)
 	fullResponse := FullResponse{Tweets: tweets, Sentiment: sentiment}
-	w.Header().Set("Access-Control-Allow-Origin", "*")
+	w.Header().Set("Access-Control-Allow-Origin", "https://fathomless-mesa-29859.herokuapp.com/")
 	json.NewEncoder(w).Encode(fullResponse)
 }
